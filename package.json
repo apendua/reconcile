@@ -1,0 +1,51 @@
+{
+  "name": "@apendua/reconcile",
+  "version": "1.0.0-rc.1",
+  "description": "Utility for reconciling JSON values",
+  "type": "module",
+  "main": "lib/index.js",
+  "module": "src/index.js",
+  "exports": {
+    ".": {
+      "require": "./lib/index.js",
+      "import": "./src/index.js",
+      "types": "./types/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc && npm run build:package.json && npm run build:types",
+    "build:package.json": "mkdir -p lib && echo '{\"type\":\"commonjs\"}' > lib/package.json",
+    "build:types": "tsc --project tsconfig.types.json",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "files": [
+    "lib",
+    "src",
+    "types"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reconcile/compare.git"
+  },
+  "keywords": [
+    "json",
+    "reconcile"
+  ],
+  "author": "apendua",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apendua/reconcile/issues"
+  },
+  "homepage": "https://github.com/apendua/reconcile#readme",
+  "devDependencies": {
+    "@apendua/compare": "^1.0.0-rc6",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.6",
+    "fast-check": "^3.19.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.5",
+    "typescript": "^5.4.5"
+  }
+}
