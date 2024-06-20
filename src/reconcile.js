@@ -1,14 +1,4 @@
-/**
- * @param {unknown} value
- * @returns {value is Record<string, unknown>}
- */
-function isDictionary(value) {
-  return (
-    value !== null &&
-    typeof value === 'object' &&
-    Object.prototype.toString.call(value) === '[object Object]'
-  );
-}
+import { isDictionary, isTheSame, assignProperty } from "./utils";
 
 /**
  * @template T
@@ -29,7 +19,7 @@ export default function reconcile(oldValue, newValue) {
     const reconciled = newValue.map((v, i) => reconcile(oldValue[i], v));
     if (
       oldValue.length === newValue.length &&
-      oldValue.every((v, i) => v === reconciled[i])
+      oldValue.every((v, i) => isTheSame(v, reconciled[i]))
     ) {
       return oldValue;
     }
@@ -41,11 +31,12 @@ export default function reconcile(oldValue, newValue) {
     const oldKeys = Object.keys(oldValue);
     const newKeys = Object.keys(newValue);
     newKeys.forEach((k) => {
-      reconciled[k] = reconcile(oldValue[k], newValue[k]);
+      // NOTE: assignProperty will also work for k = "__proto__"
+      assignProperty(reconciled, k, reconcile(oldValue[k], newValue[k]));
     });
     if (
       oldKeys.length === newKeys.length &&
-      oldKeys.every((k) => oldValue[k] === reconciled[k])
+      oldKeys.every((k) => isTheSame(oldValue[k], reconciled[k]))
     ) {
       return oldValue;
     }

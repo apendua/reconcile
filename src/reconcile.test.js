@@ -1,8 +1,8 @@
-import * as fc from 'fast-check';
-import compare from '@apendua/compare';
-import reconcile from './reconcile';
+import * as fc from "fast-check";
+import compare from "@apendua/compare";
+import reconcile from "./reconcile";
 
-test('reconcile should return the new value', () => {
+test("reconcile should return the new value", () => {
   fc.assert(
     fc.property(
       fc.jsonValue(),
@@ -18,7 +18,7 @@ test('reconcile should return the new value', () => {
   );
 });
 
-test('reconcile should detect copy', () => {
+test("reconcile should detect a copy", () => {
   fc.assert(
     fc.property(
       fc.json(),
@@ -30,11 +30,11 @@ test('reconcile should detect copy', () => {
         const value2 = JSON.parse(str);
         expect(reconcile(value1, value2)).toBe(value1);
       }
-    )
+    ),
   );
 });
 
-test('reconcile can be used to detect equal values', () => {
+test("reconcile can be used to detect equal values", () => {
   fc.assert(
     fc.property(
       fc.jsonValue(),
@@ -50,4 +50,16 @@ test('reconcile can be used to detect equal values', () => {
       }
     )
   );
+});
+
+test("reconciles an array of NaN's", () => {
+  const array = [NaN, NaN];
+  expect(reconcile(array, [NaN, NaN])).toBe(array);
+});
+
+test("handles object with __proto__ key correctly", () => {
+  const jsonString = '{"__proto__": 0}';
+  const v1 = JSON.parse(jsonString);
+  const v2 = JSON.parse(jsonString);
+  expect(reconcile(v1, v2)).toBe(v1);
 });
