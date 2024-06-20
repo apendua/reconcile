@@ -1,6 +1,6 @@
 import * as fc from "fast-check";
 import compare from "@apendua/compare";
-import reconcile from "./reconcile";
+import reconcile from "./reconcile.js";
 
 test("reconcile should return the new value", () => {
   fc.assert(

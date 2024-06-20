@@ -1,4 +1,4 @@
-import { isDictionary, isTheSame, assignProperty } from "./utils";
+import { isDictionary, isTheSame, assignKey } from "./utils.js";
 
 /**
  * @template T
@@ -31,8 +31,8 @@ export default function reconcile(oldValue, newValue) {
     const oldKeys = Object.keys(oldValue);
     const newKeys = Object.keys(newValue);
     newKeys.forEach((k) => {
-      // NOTE: assignProperty will also work for k = "__proto__"
-      assignProperty(reconciled, k, reconcile(oldValue[k], newValue[k]));
+      // NOTE: assignKey will also work for k = "__proto__"
+      assignKey(reconciled, k, reconcile(oldValue[k], newValue[k]));
     });
     if (
       oldKeys.length === newKeys.length &&

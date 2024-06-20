@@ -1,3 +1,3 @@
-import reconcile from './reconcile';
+import reconcile from './reconcile.js';
 
 export { reconcile };

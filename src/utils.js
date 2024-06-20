@@ -32,7 +32,7 @@ export function isTheSame(a, b) {
  * @param {unknown} value
  * @returns {void}
  */
-export function assignProperty(obj, key, value) {
+export function assignKey(obj, key, value) {
   if (key === "__proto__") {
     Object.defineProperty(obj, key, {
       value,
