@@ -1,6 +1,6 @@
 {
   "name": "@apendua/reconcile",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "description": "Utility for reconciling JSON values",
   "type": "module",
   "main": "lib/index.js",

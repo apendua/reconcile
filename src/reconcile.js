@@ -1,5 +1,7 @@
 import { isDictionary, isTheSame, assignKey } from "./utils.js";
 
+const isArray = Array.isArray;
+
 /**
  * @template T
  * @overload
@@ -15,7 +17,7 @@ export default function reconcile(oldValue, newValue) {
   if (oldValue === newValue) {
     return oldValue;
   }
-  if (Array.isArray(oldValue) && Array.isArray(newValue)) {
+  if (isArray(oldValue) && isArray(newValue)) {
     const reconciled = newValue.map((v, i) => reconcile(oldValue[i], v));
     if (
       oldValue.length === newValue.length &&

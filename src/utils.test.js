@@ -12,6 +12,27 @@ test("recognizes null as not dictionary", () => {
   expect(isDictionary(null)).toBe(false);
 });
 
+test("an instance of custom class is not a dictionary", () => {
+  class Custom {}
+  expect(isDictionary(new Custom())).toBe(false);
+});
+
+test("Object.create({}) is not a dictionary", () => {
+  expect(isDictionary(Object.create({}))).toBe(false);
+});
+
+test("object with null prototype is a dictionary", () => {
+  expect(isDictionary(Object.create(null))).toBe(true);
+});
+
+test("function is not a dictionary", () => {
+  expect(isDictionary(() => {})).toBe(false);
+});
+
+test('{ ["__proto__"]: [] } is a dictionary', () => {
+  expect(isDictionary({ ["__proto__"]: [] })).toBe(true);
+});
+
 test("recognizes NaN's as the same", () => {
   expect(isTheSame(NaN, NaN)).toBe(true);
 });
